@@ -42,5 +42,9 @@
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/drawer"/>
+<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+</FrameLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
