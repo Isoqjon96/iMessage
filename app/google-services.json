@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "652654781753",
+    "firebase_url": "https://imes-34abb.firebaseio.com",
+    "project_id": "imes-34abb",
+    "storage_bucket": "imes-34abb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652654781753:android:ae9ca1855e35f8f8",
+        "android_client_info": {
+          "package_name": "uz.isoft.imessage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652654781753-0498q4pjm85rr1cpmnks1hsfpsvrmbpt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.isoft.imessage",
+            "certificate_hash": "d39b933ecba63e284a2f8833bce004d99261b75b"
+          }
+        },
+        {
+          "client_id": "652654781753-albe97fiqjeo2mu7vvnmil8v05ftk2t6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH5Trj-CslZE0_DSX2HxxCzcdAffFoBd0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652654781753-albe97fiqjeo2mu7vvnmil8v05ftk2t6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

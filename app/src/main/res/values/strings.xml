@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">iMessage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="error_no_internet_connection">Подключение к Интернету отсутствует</string>
+    <string name="error_retry">Снова пробовать</string>
+
+
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="sign_in">Войти</string>
+    <string name="main">Главный</string>
+    <string name="orders">Заказы</string>
+    <string name="log_out">Выйти</string>
+    <string name="user_name">Имя</string>
+    <string name="user_surname">Фамилия</string>
+    <string name="profile_phone_number">Номер телефона</string>
+    <string name="profile_edit_title">Изменить профиль</string>
+    <string name="photo_loaded_successfully">Изображение успешно загружено</string>
+    <string name="fill_fields">Заполните поля</string>
+    <string name="error">Ошибка</string>
+    <string name="loading">Загрузка…</string>
+    <string name="login_password_not_found">Неверный логин или пароль</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="no_data_available">Данные не найдены</string>
+    <string name="done">Done</string>
+
+    <string name="chanel_notification">uz.imessage</string>
+
+</resources>
