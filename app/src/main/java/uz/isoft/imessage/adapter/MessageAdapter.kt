@@ -5,11 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_message.view.*
 import uz.isoft.imessage.Message
 import uz.isoft.imessage.PManager
 import uz.isoft.imessage.R
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,8 +59,30 @@ class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class MyMessageHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun onBind(message: Message) {
             itemView.apply {
+                when(message.type){
+                    0->{
+                        tvMessage.text = message.text
+                        iv.visibility = View.GONE
+                    }
+                    1->{
+                        pb.visibility = View.VISIBLE
+                        tvMessage.visibility = View.GONE
+                        iv.visibility = View.VISIBLE
+                        Picasso.get()
+                            .load(message.img)
+                            .fit()
+                            .into(iv,object : Callback {
+                                override fun onSuccess() {
+                                    pb.visibility  = View.GONE
+                                }
 
-                tvMessage.text = message.text
+                                override fun onError(e: Exception?) {
+                                    pb.visibility  = View.GONE
+                                }
+
+                            })
+                    }
+                }
                 tvTime.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(message.date?:0))
                 ivSend.setOnClickListener {
                     Toast.makeText(this.context ,"asa",Toast.LENGTH_SHORT).show()

@@ -22,13 +22,13 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import uz.isoft.imessage.*
-import uz.isoft.imessage.main.MainActivity
+import uz.isoft.imessage.ui.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
-    var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,22 +36,25 @@ class SplashActivity : AppCompatActivity() {
 
         when {
             PManager.getPhone().isEmpty() -> {
-                val providers = arrayListOf(AuthUI.IdpConfig.PhoneBuilder().build())
-
-                startActivityForResult(
-                    AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .setLogo(R.drawable.ic_launcher_foreground)
-                        .setTheme(R.style.AppTheme)
-                        .build(), 101
-                )
+                vBody.visibility = View.VISIBLE
             }
 
             else -> {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
+        }
+        tvStart.setOnClickListener {
+            val providers = arrayListOf(AuthUI.IdpConfig.PhoneBuilder().build())
+
+            startActivityForResult(
+                AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .setLogo(R.drawable.ic_launcher_foreground)
+                    .setTheme(R.style.AppTheme)
+                    .build(), 101
+            )
         }
     }
 
@@ -71,7 +74,7 @@ class SplashActivity : AppCompatActivity() {
                     ApiFactory
                         .getApiService()
                         .checkUser(user?.uid.toString())
-                       .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe {
                             showLoading()
@@ -105,10 +108,7 @@ class SplashActivity : AppCompatActivity() {
 
             } else {
                 Toast.makeText(this, "Sign in failed.", Toast.LENGTH_SHORT).show()
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+
             }
         }
     }
@@ -121,7 +121,7 @@ class SplashActivity : AppCompatActivity() {
         compositeDisposable.add(
             ApiFactory
                 .getApiService()
-                .sendContacts(wrapper)
+                .sendContacts(contact = wrapper, uid = PManager.getUID())
                 .doOnSubscribe {
                     showLoading()
                 }
@@ -165,8 +165,15 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
                 ActivityCompat.requestPermissions(
@@ -175,7 +182,11 @@ class SplashActivity : AppCompatActivity() {
                     101
                 )
             } else {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), 111)
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS),
+                    111
+                )
             }
         } else {
             sendContact(getContacts())
@@ -185,7 +196,7 @@ class SplashActivity : AppCompatActivity() {
     private fun getContacts(): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
         val cr = contentResolver
-        val cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        val cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
 
         if (cur?.count ?: 0 > 0) {
             while (cur?.moveToNext() == true) {

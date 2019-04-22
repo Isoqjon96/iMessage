@@ -2,10 +2,40 @@
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
         tools:context=".start.SplashActivity">
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/vBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+    >
 
+        <androidx.appcompat.widget.AppCompatImageView
+                app:srcCompat="@drawable/ic_launcher_web"
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="200dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_messaging"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/bg_ripple"
+                android:padding="8dp"
+                android:textColor="@color/colorWhite"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:textSize="18sp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
     <include
             android:id="@+id/vLoading"
             layout="@layout/view_loading"
@@ -19,11 +49,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-    </FrameLayout>
-
 
 </FrameLayout>

@@ -1,48 +1,35 @@
-package uz.isoft.imessage.main.fragment
+package uz.isoft.imessage.ui
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.activity_chat.*
 import uz.imessage.adapter.MessageAdapter
 import uz.isoft.imessage.*
 import uz.isoft.imessage.database.message.MessageFactory
 import uz.isoft.imessage.database.message.MessageViewModel
 
-class ChatFragment : Fragment() {
-
+class ChatActivity : AppCompatActivity() {
     private var adapter = MessageAdapter()
     private var contact = Contact()
     private lateinit var messageViewModel: MessageViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_chat)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    companion object {
-        fun getInstance(contact: Contact) = ChatFragment().apply {
-            arguments = Bundle().apply {
-                putSerializable("contact", contact)
-            }
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_chat, container, false)
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         try {
-            contact = arguments?.getSerializable("contact") as Contact
+            contact = intent.getSerializableExtra("contact") as Contact
         } catch (e: Exception) {
-            Toast.makeText(requireContext(),"Error contact",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Error contact", Toast.LENGTH_SHORT).show()
         }
 //        Toast.makeText(requireContext(), contact.toString(), Toast.LENGTH_SHORT).show()
-        val lm = LinearLayoutManager(requireContext())
+        val lm = LinearLayoutManager(this)
 
         lm.stackFromEnd = true
         rv.layoutManager = lm
@@ -70,7 +57,11 @@ class ChatFragment : Fragment() {
             rv.scrollToPosition(adapter.itemCount-1)
         }
 
-        super.onViewCreated(view, savedInstanceState)
+
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 }

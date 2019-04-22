@@ -23,6 +23,23 @@
                 android:gravity="end"
                 android:textSize="16sp"
         />
+        <FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+            />
+            <ProgressBar
+                    android:id="@+id/pb"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+            />
+        </FrameLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -41,6 +58,7 @@
                     android:layout_gravity="end|bottom"
                     android:layout_marginEnd="4dp"
                     android:lines="1"
+                    android:text="asdas"
             />
             <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivSend"

@@ -132,9 +132,9 @@ class ApiFactory {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(interceptor)
                 .hostnameVerifier { _, _ -> true }
-                .readTimeout(20, TimeUnit.SECONDS)
-                .connectTimeout(20 / 2, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60 / 2, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
                 .cache(null)
                 .build()
         }
@@ -152,7 +152,7 @@ interface ApiService {
     fun sendData(@Part user: MultipartBody.Part?): Single<BaseResponse<User>>
 
     @POST("contacts")
-    fun sendContacts(@Body contact: ContactWrapper): Single<BaseResponse<ArrayList<Contact>>>
+    fun sendContacts(@Header("uid")uid:String,@Body contact: ContactWrapper): Single<BaseResponse<ArrayList<Contact>>>
 
     @GET("auth")
     fun checkUser(@Header("uid") uid:String) : Single<BaseResponse<User>>

@@ -24,6 +24,7 @@ import com.esafirm.imagepicker.model.Image
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -32,7 +33,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import uz.isoft.imessage.*
-import uz.isoft.imessage.main.MainActivity
+import uz.isoft.imessage.ui.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -93,8 +94,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
                 ActivityCompat.requestPermissions(
@@ -103,7 +111,11 @@ class LoginActivity : AppCompatActivity() {
                     101
                 )
             } else {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), 111)
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS),
+                    111
+                )
             }
         } else {
             sendContact(getContacts())
@@ -235,7 +247,7 @@ class LoginActivity : AppCompatActivity() {
         compositeDisposable.add(
             ApiFactory
                 .getApiService()
-                .sendContacts(wrapper)
+                .sendContacts(contact = wrapper, uid = PManager.getUID())
                 .doOnSubscribe {
                     showLoading()
                 }
@@ -262,7 +274,7 @@ class LoginActivity : AppCompatActivity() {
                                                 setSurname(userM?.surname ?: "")
                                                 setImage(userM?.image ?: "")
                                                 setPhone(userM?.phone ?: "")
-                                                setUID(userM?.uid?:"")
+                                                setUID(userM?.uid ?: "")
                                             }
                                         }, {
                                             showFragment()
@@ -283,6 +295,7 @@ class LoginActivity : AppCompatActivity() {
                 })
         )
     }
+
 
     private fun getContacts(): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()

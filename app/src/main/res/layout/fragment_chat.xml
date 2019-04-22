@@ -5,6 +5,43 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:cardElevation="4dp"
+    >
+        <FrameLayout
+                android:id="@+id/vToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_arrow_back_black"
+                app:tint="@color/colorWhite"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ripple"
+        />
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:text="Name"
+        />
+
+    </androidx.cardview.widget.CardView>
+
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
@@ -12,29 +49,156 @@
             tools:listitem="@layout/item_message"
             android:layout_marginBottom="48dp"
             app:stackFromEnd="true"
+            android:layout_marginTop="56dp"
     />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="10"
             android:layout_gravity="bottom"
     >
         <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etMessage"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Message"
-                android:layout_weight="8"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="80dp"
+        />
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMedia"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:srcCompat="@drawable/ic_paperclip"
+                app:tint="#0f29f2"
+                android:rotation="30"
+                android:layout_marginEnd="48dp"
+                android:layout_gravity="end|center_vertical"
         />
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSend"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="end|center_vertical"
                 app:srcCompat="@drawable/ic_send_img"
                 app:tint="#0f29f2"
-                android:layout_weight="2"
         />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/vMedia"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:layout_gravity="bottom"
+            android:paddingTop="16dp"
+    >
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/vGallery"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_menu"
+                    app:srcCompat="@drawable/ic_image"
+                    android:padding="12dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gallery"
+                    android:gravity="center"
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/vVideo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+        >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_menu"
+                    app:srcCompat="@drawable/ic_filmstrip"
+                    android:padding="12dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:text="Video"
+                    android:gravity="center"
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/vMusic"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+        >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_menu"
+                    app:srcCompat="@drawable/ic_headset_black_24dp"
+                    android:padding="12dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:text="Music"
+                    android:gravity="center"
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/vFile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+        >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_menu"
+                    app:srcCompat="@drawable/ic_insert_drive_file_black_24dp"
+                    android:padding="12dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:text="File"
+                    android:gravity="center"
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 </FrameLayout>

@@ -1,52 +1,53 @@
 {
   "project_info": {
-    "project_number": "652654781753",
-    "firebase_url": "https://imes-34abb.firebaseio.com",
-    "project_id": "imes-34abb",
-    "storage_bucket": "imes-34abb.appspot.com"
+    "project_number": "190286536060",
+    "firebase_url": "https://imessage-c9453.firebaseio.com",
+    "project_id": "imessage-c9453",
+    "storage_bucket": "imessage-c9453.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:652654781753:android:ae9ca1855e35f8f8",
+        "mobilesdk_app_id": "1:190286536060:android:ae9ca1855e35f8f8",
         "android_client_info": {
           "package_name": "uz.isoft.imessage"
         }
       },
       "oauth_client": [
         {
-          "client_id": "652654781753-0498q4pjm85rr1cpmnks1hsfpsvrmbpt.apps.googleusercontent.com",
+          "client_id": "190286536060-kt10689p2c4a2rbej8ilhf05aqr4h6m7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "uz.isoft.imessage",
-            "certificate_hash": "d39b933ecba63e284a2f8833bce004d99261b75b"
+            "certificate_hash": "9708239eb9b0c7ea9aea7b83a66438b74540c01a"
           }
         },
         {
-          "client_id": "652654781753-albe97fiqjeo2mu7vvnmil8v05ftk2t6.apps.googleusercontent.com",
+          "client_id": "190286536060-vlpab65v46mntvsg97hsn2vd62h5hoks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.isoft.imessage",
+            "certificate_hash": "5378389775c2391364dd31663c7aecbeb018000e"
+          }
+        },
+        {
+          "client_id": "190286536060-lnjdhhhupcjr1kutlq7l7291cieeblkf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAH5Trj-CslZE0_DSX2HxxCzcdAffFoBd0"
+          "current_key": "AIzaSyC4GcyMkfjFctBHFqgvorj89NBl1ddRyYE"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "652654781753-albe97fiqjeo2mu7vvnmil8v05ftk2t6.apps.googleusercontent.com",
+              "client_id": "190286536060-lnjdhhhupcjr1kutlq7l7291cieeblkf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

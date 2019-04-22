@@ -15,7 +15,7 @@ import uz.isoft.imessage.R
 import uz.isoft.imessage.adapter.ContactAdapter
 import uz.isoft.imessage.database.contact.ContactViewModel
 import uz.isoft.imessage.database.message.MessageViewModel
-import uz.isoft.imessage.main.MainActivity
+import uz.isoft.imessage.ui.MainActivity
 
 class MainFragment : Fragment(), ContactAdapter.CallBack {
 
@@ -45,14 +45,6 @@ class MainFragment : Fragment(), ContactAdapter.CallBack {
         model.getNoReads().observe(this, Observer<List<Message>> {
             adapter.setCount(it as ArrayList<Message>)
         })
-
-//        tempMessageViewModel = ViewModelProviders.of(this).get(TempMessageViewModel::class.java)
-//        tempMessageViewModel.getTempMessage().observe(this,
-//            Observer<List<TempMessage>> { t ->
-//                adapter.setCount(t as ArrayList<TempMessage>)
-//            }
-//        )
-
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -61,42 +53,4 @@ class MainFragment : Fragment(), ContactAdapter.CallBack {
         model.update(contactModel.uid?:"")
         (requireContext() as MainActivity).replaceFragment(ChatFragment.getInstance(a), "chat")
     }
-
-    override fun onStart() {
-        getData()
-
-        super.onStart()
-    }
-
-    private fun getData() {
-
-//        compositeDisposable = CompositeDisposable()
-//        compositeDisposable.add(
-//            ApiFactory
-//                .getContactDataBase(requireContext())
-//                .contactDao()
-//                .getAll()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                    data = it as ArrayList<Contact>
-//                    adapter.setData(data)
-//                    Log.i("isoqjon",data.toString())
-////                    getMessageCount()
-//                }, {
-//                    Log.i("isoqjon","error")
-//                })
-//        )
-    }
-
-//    private fun getMessageCount() {
-//        compositeDisposable = CompositeDisposable()
-//        compositeDisposable.add(
-//            ApiFactory
-//                .getMessage(requireContext())
-//                .tempMessageDao()
-//                .getAll()
-//                .
-//        )
-//    }
 }

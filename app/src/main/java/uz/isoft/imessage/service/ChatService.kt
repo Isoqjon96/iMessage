@@ -7,19 +7,15 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
-import android.net.ConnectivityManager
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.gson.Gson
-import org.java_websocket.WebSocket
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
-import uz.isoft.imessage.Message
-import uz.isoft.imessage.PManager
-import uz.isoft.imessage.R
+import uz.isoft.imessage.*
 import uz.isoft.imessage.database.message.MessageRepository
 import uz.isoft.imessage.start.SplashActivity
 import java.net.URI
@@ -43,7 +39,7 @@ class ChatService : Service() {
         Toast.makeText(applicationContext, "Service", Toast.LENGTH_SHORT).show()
         val uri: URI
         try {
-            uri = URI("http://46.8.18.241:8080/ws")
+            uri = URI(WEB_SOCKET_URL)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
             return
@@ -64,10 +60,10 @@ class ChatService : Service() {
             }
 
             override fun onMessage(message: String?) {
-                Log.i("websocket", message)
-                val temp = gson.fromJson<Message>(message,Message::class.java)
-                temp.status = 1
-                repository?.insert(temp)
+                Log.i("websocketMes", message)
+                val temp = gson.fromJson<BaseResponse<Message>>(message,Message::class.java)
+                temp.result?.status = 1
+                repository?.insert(temp?.result?: Message())
 
                 val pendingIntent = PendingIntent.getActivity(
                     applicationContext,
@@ -80,12 +76,12 @@ class ChatService : Service() {
                 val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
                 val inbox = NotificationCompat.InboxStyle()
-                inbox.setBigContentTitle(temp.from)
-                inbox.addLine(temp.text)
+                inbox.setBigContentTitle(temp.result?.from)
+                inbox.addLine(temp.result?.text)
 
                 val notificationBuilder = NotificationCompat.Builder(applicationContext)
-                    .setContentTitle("${temp.from} dan xabar")
-                    .setContentText(temp.text)
+                    .setContentTitle("${temp.result?.from} dan xabar")
+                    .setContentText(temp.result?.text)
                     .setPriority(Notification.PRIORITY_MAX)
                     .setSmallIcon(R.drawable.ic_launcher_web)
                     .setSound(defaultSoundUri)
@@ -105,12 +101,13 @@ class ChatService : Service() {
 
     fun sendMsg(s:String):Boolean{
 
-        if(isOpen && webSocket!=null){
+
+        return if(isOpen && webSocket!=null){
             webSocket?.send(s)
-            Log.i("websockets",s)
-        return true
+            Log.i("websockets send",s)
+            true
         }else{
-            return false
+            false
         }
     }
 

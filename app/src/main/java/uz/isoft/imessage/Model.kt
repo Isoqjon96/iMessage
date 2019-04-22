@@ -15,7 +15,7 @@ data class User(
 
 data class BaseResponse<T>(
     val code: Int,
-    val result: T?,
+    var result: T?,
     val error: String
 ) : Serializable
 
@@ -44,7 +44,9 @@ data class Message(
     val text: String? = null,
     val date: Long? = null,
     var flag: Int = 0,
-    var status: Int = 0
+    var status: Int = 0,
+    var type:Int = 0,
+    val img:String?=null
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
@@ -62,7 +64,3 @@ data class TempMessage(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
-
-data class ResponseMessage<T>(val code: Int,
-                    val result: T?,
-                    val error: String?):Serializable
