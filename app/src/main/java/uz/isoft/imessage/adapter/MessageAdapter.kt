@@ -62,12 +62,12 @@ class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 when(message.type){
                     0->{
                         tvMessage.text = message.text
-                        iv.visibility = View.GONE
+                        vImage.visibility = View.GONE
                     }
                     1->{
                         pb.visibility = View.VISIBLE
+                        vImage.visibility = View.VISIBLE
                         tvMessage.visibility = View.GONE
-                        iv.visibility = View.VISIBLE
                         Picasso.get()
                             .load(message.img)
                             .fit()

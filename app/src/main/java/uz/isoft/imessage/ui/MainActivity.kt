@@ -56,8 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setData()
         replaceFragment(MainFragment.getInstance(), "main")
 
-        startService(Intent(applicationContext, ChatService::class.java))
-
         model = ViewModelProviders.of(this).get(MessageViewModel::class.java)
 
         model.getNoSendMessage().observe(this, Observer<List<Message>> {
@@ -65,17 +63,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if (!mBound) {
                     bindService(Intent(this, ChatService::class.java), mConnection, Context.BIND_AUTO_CREATE)
                     Toast.makeText(this, "mBound", Toast.LENGTH_SHORT).show()
-
-                } else if (mService?.webSocket?.isOpen != true) {
-                    mService?.connectWebSocket()
-                    Toast.makeText(this, mService?.webSocket?.isOpen.toString() + "mService", Toast.LENGTH_SHORT).show()
                 } else if (checkNetwork()) {
                     it.forEach { m ->
-
-                        val temp = BaseResponse(code = 0,error = "",result = m)
-                        if (mService?.sendMsg(gson.toJson(temp).toString()) == true && m.status != 1) {
-                            m.status = 1
-                            model.updateMessage(m)
+                        if (m.status != 1) {
+                            if (mService?.sendMsg(
+                                    s = gson.toJson(
+                                        BaseResponse(
+                                            code = 0,
+                                            error = "",
+                                            result = m
+                                        )
+                                    ).toString()
+                                ) == true
+                            ) {
+                                m.status = 1
+                                model.updateMessage(m)
+                            }
                         }
                     }
                 }
@@ -132,14 +135,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun replaceFragment(fragment: Fragment, tag: String) {
-        if(tag=="main"){
+        if (tag == "main") {
             isMain = true
             dl.visibility = View.VISIBLE
             vChat.visibility = View.GONE
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment, tag)
                 .commit()
-        }else{
+        } else {
             isMain = false
             dl.visibility = View.GONE
             vChat.visibility = View.VISIBLE
@@ -152,7 +155,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         when {
             dl.isDrawerOpen(GravityCompat.START) -> dl.closeDrawer(GravityCompat.START)
-            !isMain -> replaceFragment(MainFragment.getInstance(),"main")
+            !isMain -> replaceFragment(MainFragment.getInstance(), "main")
             else -> super.onBackPressed()
         }
     }

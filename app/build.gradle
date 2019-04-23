@@ -28,6 +28,19 @@ android {
         multiDexEnabled true
 
     }
+    packagingOptions {
+        exclude 'META-INF/kotlinx-io.kotlin_module'
+        exclude 'META-INF/atomicfu.kotlin_module'
+        exclude 'META-INF/kotlinx-coroutines-io.kotlin_module'
+        exclude 'META-INF/kotlinx-coroutines-core.kotlin_module'
+        exclude 'META-INF/kotlinx-io.kotlin_module'
+        exclude 'META-INF/ktor-http.kotlin_module'
+        exclude 'META-INF/ktor-utils.kotlin_module'
+        exclude 'META-INF/ktor-client-core.kotlin_module'
+
+
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -85,6 +98,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
     implementation 'org.java-websocket:Java-WebSocket:1.4.0'
 
+//    implementation "io.ktor:ktor-client-websocket:1.1.4"
+//    implementation "io.ktor:ktor-client-cio:1.1.4"
+//    implementation 'io.ktor:ktor-client-websocket:1.1.4'
+//
+//    implementation "io.ktor:ktor-client-core:1.1.4"
+//    implementation "io.ktor:ktor-client-android:1.1.4"
     ///room
     implementation 'androidx.room:room-runtime:2.0.0'
     implementation 'androidx.room:room-rxjava2:2.0.0'

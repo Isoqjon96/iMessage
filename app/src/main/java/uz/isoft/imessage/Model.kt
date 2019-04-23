@@ -15,7 +15,7 @@ data class User(
 
 data class BaseResponse<T>(
     val code: Int,
-    var result: T?,
+    var result: T?=null,
     val error: String
 ) : Serializable
 

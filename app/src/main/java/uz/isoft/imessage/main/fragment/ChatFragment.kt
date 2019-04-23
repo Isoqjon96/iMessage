@@ -54,7 +54,11 @@ class ChatFragment : Fragment() {
                 adapter.setData(t)
             }
         )
+        onClickListeners()
+        super.onViewCreated(view, savedInstanceState)
+    }
 
+    private fun onClickListeners() {
         ivSend.setOnClickListener {
             val s = Message(
                 date = System.currentTimeMillis(),
@@ -69,8 +73,11 @@ class ChatFragment : Fragment() {
             messageViewModel.insert(s)
             rv.scrollToPosition(adapter.itemCount-1)
         }
+        ivMedia.setOnClickListener {
+            vMedia.visibility = View.VISIBLE
+        }
 
-        super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

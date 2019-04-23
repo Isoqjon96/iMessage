@@ -17,6 +17,7 @@ import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import uz.isoft.imessage.*
 import uz.isoft.imessage.database.message.MessageRepository
+import uz.isoft.imessage.main.fragment.MainFragment
 import uz.isoft.imessage.start.SplashActivity
 import java.net.URI
 import java.net.URISyntaxException
@@ -25,7 +26,7 @@ class ChatService : Service() {
 
     var webSocket: WebSocketClient? = null
     private var isOpen = false
-    private var repository: MessageRepository? =null
+    private var repository: MessageRepository? = null
     private var gson = Gson()
 
     override fun onCreate() {
@@ -55,43 +56,66 @@ class ChatService : Service() {
 
             override fun onClose(code: Int, reason: String?, remote: Boolean) {
                 Log.i("websocket", "onclose")
-                Toast.makeText(applicationContext,"onclose",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "onclose", Toast.LENGTH_SHORT).show()
                 this@ChatService.isOpen = false
             }
 
             override fun onMessage(message: String?) {
                 Log.i("websocketMes", message)
-                val temp = gson.fromJson<BaseResponse<Message>>(message,Message::class.java)
-                temp.result?.status = 1
-                repository?.insert(temp?.result?: Message())
+                val baseResponse = gson.fromJson(message, BaseResponse::class.java)
+                if (baseResponse.code == 0) {
+                    val messageT: Message = gson.fromJson(baseResponse.result.toString(), Message::class.java)
+                    messageT.status=1
+                    repository?.insert(messageT)
+//                val t = MainFragment.adapter.getData().map {
+//                    it.uid
+//                }
+//                if(!t.contains(temp.result?.from)){
+//                    MainFragment.adapter.setData()
+//                  }
+//                    val pendingIntent = PendingIntent.getActivity(
+//                        applicationContext, 0, Intent(applicationContext, SplashActivity::class.java),
+//                        PendingIntent.FLAG_ONE_SHOT
+//                    )
+//
+//                    val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//
+//                    val notificationBuilder = NotificationCompat.Builder(applicationContext)
+//                        .setContentText(messageT.text)
+//                        .setAutoCancel(true)
+//                        .setSmallIcon(R.drawable.logo)
+//                        .setSound(defaultSoundUri)
+//                        .setContentIntent(pendingIntent)
+//                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//                    notificationManager.notify(0, notificationBuilder.build())
+//                }
+                    val pendingIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        System.currentTimeMillis().toInt(),
+                        Intent(applicationContext, SplashActivity::class.java)
+                        ,
+                        0
+                    )
 
-                val pendingIntent = PendingIntent.getActivity(
-                    applicationContext,
-                    System.currentTimeMillis().toInt(),
-                    Intent(applicationContext, SplashActivity::class.java)
-                    ,
-                    0
-                )
+                    val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-                val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                    val inbox = NotificationCompat.InboxStyle()
+                    inbox.setBigContentTitle(messageT.from)
+                    inbox.addLine(messageT.text)
 
-                val inbox = NotificationCompat.InboxStyle()
-                inbox.setBigContentTitle(temp.result?.from)
-                inbox.addLine(temp.result?.text)
+                    val notificationBuilder = NotificationCompat.Builder(applicationContext)
+                        .setContentTitle("${messageT.from} dan xabar")
+                        .setContentText(messageT.text)
+                        .setPriority(Notification.PRIORITY_MAX)
+                        .setSmallIcon(R.drawable.ic_launcher_web)
+                        .setSound(defaultSoundUri)
+                        .setStyle(inbox)
+                        .setContentIntent(pendingIntent)
 
-                val notificationBuilder = NotificationCompat.Builder(applicationContext)
-                    .setContentTitle("${temp.result?.from} dan xabar")
-                    .setContentText(temp.result?.text)
-                    .setPriority(Notification.PRIORITY_MAX)
-                    .setSmallIcon(R.drawable.ic_launcher_web)
-                    .setSound(defaultSoundUri)
-                    .setStyle(inbox)
-                    .setContentIntent(pendingIntent)
-
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.notify(0, notificationBuilder.build())
+                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    notificationManager.notify(0, notificationBuilder.build())
+                }
             }
-
             override fun onError(ex: Exception?) {
                 Log.i("websocket", "onerror")
             }
@@ -99,14 +123,14 @@ class ChatService : Service() {
         webSocket?.connect()
     }
 
-    fun sendMsg(s:String):Boolean{
+    fun sendMsg(s: String): Boolean {
 
-
-        return if(isOpen && webSocket!=null){
+        return if (isOpen && webSocket != null) {
             webSocket?.send(s)
-            Log.i("websockets send",s)
+            Log.i("websockets", s)
             true
-        }else{
+        } else {
+            connectWebSocket()
             false
         }
     }
@@ -123,7 +147,7 @@ class ChatService : Service() {
 
 
     override fun onDestroy() {
-        Toast.makeText(applicationContext,"onclose service",Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "onclose service", Toast.LENGTH_SHORT).show()
         super.onDestroy()
     }
 }

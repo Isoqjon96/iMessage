@@ -24,7 +24,10 @@
         </activity>
         <activity android:name=".start.LoginActivity">
         </activity>
-        <activity android:name=".start.SplashActivity">
+        <activity
+                android:name=".start.SplashActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -38,11 +41,18 @@
         </activity>
         <activity android:name=".ui.ChatActivity"/>
 
+        <!--<service-->
+        <!--android:name=".service.KtorService"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="false">-->
+        <!--</service>-->
         <service
                 android:name=".service.ChatService"
                 android:enabled="true"
                 android:exported="false">
+
         </service>
+
     </application>
 
 </manifest>
