@@ -19,6 +19,7 @@
             android:layout_height="72dp"
             android:layout_marginTop="8dp"
             app:srcCompat="@drawable/ic_account"
+            android:src="@drawable/ic_account"
             tools:ignore="VectorDrawableCompat" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/colorWhite" />
 
@@ -33,6 +35,8 @@
             android:id="@+id/tvPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:text="+998 97 735 69 63"
+            />
 
 </LinearLayout>

@@ -39,13 +39,6 @@
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
-            <!--<androidx.recyclerview.widget.RecyclerView-->
-            <!--android:id="@+id/rv"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--tools:listitem="@layout/item_user"-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-            <!--/>-->
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -71,13 +64,6 @@
                 android:id="@+id/container1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-        <!--<androidx.recyclerview.widget.RecyclerView-->
-        <!--android:id="@+id/rv"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--tools:listitem="@layout/item_user"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--/>-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

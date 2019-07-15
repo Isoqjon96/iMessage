@@ -11,23 +11,21 @@
     <string name="error_retry">Снова пробовать</string>
 
 
-    <string name="login">Логин</string>
-    <string name="password">Пароль</string>
-    <string name="sign_in">Войти</string>
-    <string name="main">Главный</string>
-    <string name="orders">Заказы</string>
-    <string name="log_out">Выйти</string>
-    <string name="user_name">Имя</string>
-    <string name="user_surname">Фамилия</string>
-    <string name="profile_phone_number">Номер телефона</string>
-    <string name="profile_edit_title">Изменить профиль</string>
-    <string name="photo_loaded_successfully">Изображение успешно загружено</string>
-    <string name="fill_fields">Заполните поля</string>
-    <string name="error">Ошибка</string>
-    <string name="loading">Загрузка…</string>
-    <string name="login_password_not_found">Неверный логин или пароль</string>
-    <string name="unknown_error">Неизвестная ошибка</string>
-    <string name="no_data_available">Данные не найдены</string>
+    <string name="login">Log in</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="log_out">Log out</string>
+    <string name="user_name">Name</string>
+    <string name="user_surname">Surname</string>
+    <string name="profile_phone_number">Phone number </string>
+    <string name="profile_edit_title">Edit profile</string>
+    <string name="photo_loaded_successfully">Photo upload successfully</string>
+    <string name="fill_fields">Fill fields</string>
+    <string name="error">Error</string>
+    <string name="loading">Loading…</string>
+    <string name="login_password_not_found">Login or password is incorrect</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="no_data_available">Data not found</string>
     <string name="done">Done</string>
 
     <string name="chanel_notification">uz.imessage</string>

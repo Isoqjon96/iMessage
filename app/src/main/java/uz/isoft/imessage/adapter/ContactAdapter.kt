@@ -24,6 +24,11 @@ class ContactAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun addData(data: Contact) {
+        this.data.add(data)
+        notifyDataSetChanged()
+    }
+
     fun getData() = data
 
     fun setCount(messages: ArrayList<Message>) {

@@ -3,13 +3,15 @@
              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:orientation="vertical"
              android:layout_width="match_parent"
+             android:layout_gravity="top"
              android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="56dp"
             app:cardElevation="4dp"
-    >
+            >
+
         <FrameLayout
                 android:id="@+id/vToolbar"
                 android:layout_width="match_parent"
@@ -25,8 +27,8 @@
                 app:srcCompat="@drawable/ic_arrow_back_black"
                 app:tint="@color/colorWhite"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ripple"
-        />
+                android:background="@drawable/ripple"/>
+
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
@@ -36,8 +38,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                android:text="Name"
-        />
+                android:text="Name"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -106,6 +107,7 @@
                 android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGallery"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:background="@drawable/bg_menu"

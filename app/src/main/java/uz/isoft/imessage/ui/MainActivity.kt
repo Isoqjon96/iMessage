@@ -111,15 +111,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onStop() {
+
+    override fun onDestroy() {
         if (mBound) {
             unbindService(mConnection)
             mBound = false
         }
-        super.onStop()
-    }
-
-    override fun onDestroy() {
         handler.removeCallbacks(runnable)
         super.onDestroy()
     }
@@ -127,7 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-
+            R.id.action_setting ->replaceFragment(SettingActivity.getInstance(),"setting")
         }
 
         dl.closeDrawer(GravityCompat.START)
@@ -160,7 +157,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun setData() {
+    fun setData() {
         var s = ""
         for (x in 0..12) {
             if (x == 4 || x == 6 || x == 9 || x == 11) s += " "

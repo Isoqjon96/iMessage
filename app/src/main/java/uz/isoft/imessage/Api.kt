@@ -156,8 +156,13 @@ interface ApiService {
 
     @GET("auth")
     fun checkUser(@Header("uid") uid:String) : Single<BaseResponse<User>>
+//    @GgetApiServiceET("agent/statistics")
 
-//    @GET("agent/statistics")
-//    fun getStatistics(@Header("key") key: String): Single<BaseResponse<StatisticsWrapper>>
+    @POST("agent/statistics")
+    fun setProfileData(@Header("key") key: String, @Query("name")name:String,@Query("surname")surname:String ): Single<BaseResponse<String>>
+
+    @Multipart
+    @POST("agent/statistics")
+    fun upDataAgentImage(@Header("key") key: String,paryt:MultipartBody.Part): Single<BaseResponse<String>>
 
 }

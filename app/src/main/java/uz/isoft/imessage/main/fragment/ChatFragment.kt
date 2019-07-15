@@ -1,5 +1,6 @@
 package uz.isoft.imessage.main.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.imagepicker.model.Image
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_chat.*
 import uz.imessage.adapter.MessageAdapter
 import uz.isoft.imessage.*
 import uz.isoft.imessage.database.message.MessageFactory
 import uz.isoft.imessage.database.message.MessageViewModel
+import java.io.File
 
 class ChatFragment : Fragment() {
 
     private var adapter = MessageAdapter()
     private var contact = Contact()
     private lateinit var messageViewModel: MessageViewModel
+    private var image: Image? = null
 
 
     companion object {
@@ -41,9 +47,7 @@ class ChatFragment : Fragment() {
         } catch (e: Exception) {
             Toast.makeText(requireContext(),"Error contact",Toast.LENGTH_SHORT).show()
         }
-//        Toast.makeText(requireContext(), contact.toString(), Toast.LENGTH_SHORT).show()
         val lm = LinearLayoutManager(requireContext())
-
         lm.stackFromEnd = true
         rv.layoutManager = lm
         rv.adapter = adapter
@@ -68,7 +72,6 @@ class ChatFragment : Fragment() {
                 status = 0
             )
 
-//            (requireActivity() as MainActivity).mService?.sendMsg(gson.toJson(s).toString())
             etMessage.setText("")
             messageViewModel.insert(s)
             rv.scrollToPosition(adapter.itemCount-1)
@@ -77,7 +80,25 @@ class ChatFragment : Fragment() {
             vMedia.visibility = View.VISIBLE
         }
 
+        ivGallery.setOnClickListener {
+            ImagePicker.create(this)
+                .theme(R.style.AppTheme_NoActionBar)
+                .folderMode(true)
+                .single()
+                .start()
+        }
+        vVideo.setOnClickListener {
+
+        }
 
     }
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            image = ImagePicker.getFirstImageOrNull(data)
+//            Picasso.get()
+//                .load(File(image?.path))
+//                .into(ivAvatar)
+        }
+    }
 }

@@ -24,7 +24,7 @@ import java.net.URISyntaxException
 
 class ChatService : Service() {
 
-    var webSocket: WebSocketClient? = null
+    private var webSocket: WebSocketClient? = null
     private var isOpen = false
     private var repository: MessageRepository? = null
     private var gson = Gson()
@@ -36,8 +36,7 @@ class ChatService : Service() {
         super.onCreate()
     }
 
-    fun connectWebSocket() {
-        Toast.makeText(applicationContext, "Service", Toast.LENGTH_SHORT).show()
+    private fun connectWebSocket() {
         val uri: URI
         try {
             uri = URI(WEB_SOCKET_URL)
@@ -61,34 +60,18 @@ class ChatService : Service() {
             }
 
             override fun onMessage(message: String?) {
-                Log.i("websocketMes", message)
+
                 val baseResponse = gson.fromJson(message, BaseResponse::class.java)
                 if (baseResponse.code == 0) {
                     val messageT: Message = gson.fromJson(baseResponse.result.toString(), Message::class.java)
-                    messageT.status=1
+                    messageT.status = 1
+                    if (messageT.from != PManager.getUID() && !MainFragment.adapter.getData().map {
+                            it.uid
+                        }.contains(messageT.from)) {
+                        MainFragment.adapter.addData(Contact(name = messageT.from,
+                            uid =  messageT.from))
+                    }
                     repository?.insert(messageT)
-//                val t = MainFragment.adapter.getData().map {
-//                    it.uid
-//                }
-//                if(!t.contains(temp.result?.from)){
-//                    MainFragment.adapter.setData()
-//                  }
-//                    val pendingIntent = PendingIntent.getActivity(
-//                        applicationContext, 0, Intent(applicationContext, SplashActivity::class.java),
-//                        PendingIntent.FLAG_ONE_SHOT
-//                    )
-//
-//                    val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-//
-//                    val notificationBuilder = NotificationCompat.Builder(applicationContext)
-//                        .setContentText(messageT.text)
-//                        .setAutoCancel(true)
-//                        .setSmallIcon(R.drawable.logo)
-//                        .setSound(defaultSoundUri)
-//                        .setContentIntent(pendingIntent)
-//                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//                    notificationManager.notify(0, notificationBuilder.build())
-//                }
                     val pendingIntent = PendingIntent.getActivity(
                         applicationContext,
                         System.currentTimeMillis().toInt(),
@@ -116,10 +99,12 @@ class ChatService : Service() {
                     notificationManager.notify(0, notificationBuilder.build())
                 }
             }
+
             override fun onError(ex: Exception?) {
                 Log.i("websocket", "onerror")
             }
         }
+
         webSocket?.connect()
     }
 
